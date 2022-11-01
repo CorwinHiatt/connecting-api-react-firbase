@@ -1,6 +1,7 @@
 import dbConnect from "./dbconnect.js";
 
 export function getAllAlbums(req,res) {
+    console.log('get all albums')
     const db = dbConnect()
     db.collection('albums').get()
     .then(collection => {
@@ -8,6 +9,8 @@ export function getAllAlbums(req,res) {
            
             return{...doc.data(), albumId: doc.id}
         })
+        res.status(200).send(albumArr)
+
     })
     .catch(err => res.status(500).send({success: false, message: err}))
 }
